@@ -1,31 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Create Portfolio</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
+  <title>Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://unpkg.com/@supabase/supabase-js"></script>
+  <style>
+    body{background:#000;color:#fff;font-family:sans-serif;padding:20px}
+    input,textarea,button{width:100%;padding:12px;margin:8px 0}
+    button{background:#22c55e;color:#000;border:none}
+  </style>
 </head>
 <body>
 
-<div class="card">
-  <h2>Create Your Portfolio</h2>
+<h2>Your Profile</h2>
 
-  <input type="file" id="photo" accept="image/*">
-  <input id="name" placeholder="Your Name">
-  <textarea id="about" placeholder="About You"></textarea>
+<input id="username" placeholder="Username (sohil_khan)">
+<input id="name" placeholder="Full Name">
+<input id="title" placeholder="Job Title">
+<textarea id="bio" placeholder="Bio"></textarea>
+<input id="skills" placeholder="Skills (html,css,js)">
 
-  <input id="instagram" placeholder="Instagram link">
-  <input id="telegram" placeholder="Telegram link">
-  <input id="whatsapp" placeholder="WhatsApp group link">
-  <input id="youtube" placeholder="YouTube channel link">
-  <input id="linkedin" placeholder="LinkedIn link">
+<button onclick="saveProfile()">Save Profile</button>
 
-  <button id="createBtn">🚀 Create Portfolio</button>
+<p id="link"></p>
 
-  <div id="linkBox" style="margin-top:15px"></div>
-</div>
+<script>
+const supabase = supabasejs.createClient(
+  "https://ucxkhlphapommphtojxx.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVjeGtobHBoYXBvbW1waHRvanh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU5NDg2NjUsImV4cCI6MjA4MTUyNDY2NX0.oHKK-ymbElDB38xrZyFQAMxTb82LRiiUzzOE9V93uF0"
+);
 
-<script type="module" src="dashboard.js"></script>
+function validUsername(u){
+  return /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(u);
+}
+
+async function saveProfile(){
+  const user = await supabase.auth.getUser();
+  if(!user.data.user){
+    alert("Please login again");
+    location.href="index.html";
+    return;
+  }
+
+  const username = document.getElementById("username").value.toLowerCase();
+
+  if(!validUsername(username)){
+    alert("Invalid username. Use letters, numbers, underscore. No dash.");
+    return;
+  }
+
+  const { error } = await supabase.from("profiles").upsert({
+    id: user.data.user.id,
+    username: username,
+    full_name: name.value,
+    job_title: title.value,
+    bio: bio.value,
+    skills: skills.value.split(",")
+  });
+
+  if(error){
+    alert(error.message);
+  }else{
+    document.getElementById("link").innerHTML =
+      `Public link: <a href="portfolio.html?u=${username}" style="color:#60a5fa">Open</a>`;
+    alert("Saved successfully");
+  }
+}
+</script>
+
 </body>
 </html>
