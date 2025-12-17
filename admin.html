@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="card">
+  <h2>🔐 Admin Login</h2>
+
+  <div id="loginBox">
+    <input type="password" id="adminPass" placeholder="Admin Password">
+    <button onclick="login()">Login</button>
+  </div>
+
+  <div id="panel" style="display:none">
+    <h3>All Portfolios</h3>
+    <div id="users"></div>
+    <button onclick="logout()" style="background:#ef4444;margin-top:10px">
+      Logout
+    </button>
+  </div>
+</div>
+
+<script type="module" src="admin.js"></script>
+</body>
+</html>
