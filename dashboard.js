@@ -1,37 +1,32 @@
 import { db, storage } from "./firebase.js";
-import {
-  doc,
-  setDoc
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
-// random chars
-function randomString(len = 4){
+function randomString(len = 4) {
   return Math.random().toString(36).substring(2, 2 + len);
 }
 
-window.savePortfolio = async () => {
+const btn = document.getElementById("createBtn");
+const linkBox = document.getElementById("linkBox");
+
+btn.addEventListener("click", async () => {
   try {
     const photo = document.getElementById("photo").files[0];
-    if(!photo){
+    if (!photo) {
       alert("Profile photo upload karo");
       return;
     }
 
     const baseUsername = localStorage.getItem("username");
-    if(!baseUsername){
-      alert("Session expired. Login again.");
+    if (!baseUsername) {
+      alert("Login again");
       location.href = "/";
       return;
     }
 
     const finalUsername = `${baseUsername}-${randomString()}`;
 
-    // upload image
+    // Upload image
     const imgRef = ref(storage, `profiles/${finalUsername}`);
     await uploadBytes(imgRef, photo);
     const photoURL = await getDownloadURL(imgRef);
@@ -48,7 +43,7 @@ window.savePortfolio = async () => {
       createdAt: Date.now()
     };
 
-    if(!data.name || !data.profession){
+    if (!data.name || !data.profession) {
       alert("Name aur profession required hai");
       return;
     }
@@ -57,18 +52,21 @@ window.savePortfolio = async () => {
 
     const link = `${location.origin}/u/${finalUsername}`;
 
-    document.getElementById("linkBox").innerHTML = `
-      <div style="word-break:break-all;text-align:center">
-        ✅ Portfolio created successfully<br><br>
+    linkBox.innerHTML = `
+      <div style="text-align:center;word-break:break-all">
+        ✅ <b>Portfolio Live Ho Gaya</b><br><br>
         <a href="${link}" target="_blank">${link}</a><br><br>
-        <button onclick="navigator.clipboard.writeText('${link}')">
-          📋 Copy Portfolio Link
-        </button>
+        <button id="copyBtn">📋 Copy Link</button>
       </div>
     `;
 
+    document.getElementById("copyBtn").onclick = () => {
+      navigator.clipboard.writeText(link);
+      alert("Link copied ✅");
+    };
+
   } catch (err) {
-    alert("Error: " + err.message);
     console.error(err);
+    alert("Error: " + err.message);
   }
-};
+});
