@@ -2,39 +2,23 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Dashboard – Portfolio Maker</title>
+<title>Create Portfolio</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="card">
-  <h2 style="text-align:center">Create Your Portfolio</h2>
+  <h2 style="text-align:center">Create Portfolio</h2>
 
-  <label>Profile Photo</label>
   <input type="file" id="photo" accept="image/*">
+  <input id="name" placeholder="Your Name">
+  <input id="profession" placeholder="Profession">
+  <textarea id="bio" placeholder="About you"></textarea>
 
-  <label>Full Name</label>
-  <input id="name" placeholder="Your name">
+  <button id="createBtn">🚀 Create Portfolio</button>
 
-  <label>Profession</label>
-  <input id="profession" placeholder="Web Developer">
-
-  <label>About You</label>
-  <textarea id="bio" placeholder="Short bio..."></textarea>
-
-  <label>Instagram</label>
-  <input id="instagram" placeholder="https://instagram.com/...">
-
-  <label>GitHub</label>
-  <input id="github" placeholder="https://github.com/...">
-
-  <label>LinkedIn</label>
-  <input id="linkedin" placeholder="https://linkedin.com/...">
-
-  <button onclick="savePortfolio()">🚀 Create Portfolio</button>
-
-  <div id="linkBox" style="margin-top:15px"></div>
+  <div id="linkBox" style="margin-top:15px;text-align:center"></div>
 </div>
 
 <script type="module" src="dashboard.js"></script>
