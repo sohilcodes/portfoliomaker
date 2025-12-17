@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="card">
+  <h2>Create Your Portfolio</h2>
+
+  <input type="file" id="photo" accept="image/*">
+  <input id="name" placeholder="Full Name">
+  <input id="profession" placeholder="Profession">
+  <textarea id="bio" placeholder="About You"></textarea>
+
+  <input id="instagram" placeholder="Instagram Link">
+  <input id="github" placeholder="GitHub Link">
+  <input id="linkedin" placeholder="LinkedIn Link">
+
+  <button onclick="savePortfolio()">Create Portfolio</button>
+
+  <p id="linkBox"></p>
+</div>
+
+<script type="module" src="dashboard.js"></script>
+</body>
+</html>
