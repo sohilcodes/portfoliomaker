@@ -1,36 +1,43 @@
+*{
+  box-sizing:border-box;
+}
+
 body{
+  margin:0;
+  font-family:system-ui, sans-serif;
   background:#0f172a;
   color:white;
-  font-family:system-ui;
-  display:flex;
-  justify-content:center;
-  align-items:center;
   min-height:100vh;
 }
 
 .card{
   background:#020617;
-  padding:25px;
+  padding:20px;
   border-radius:16px;
   width:100%;
   max-width:420px;
+  margin:20px auto;
   box-shadow:0 20px 40px rgba(0,0,0,.4);
-  animation:fade .6s ease;
+  animation:fade .5s ease;
 }
 
-.center{text-align:center}
-
 @keyframes fade{
-  from{opacity:0;transform:translateY(20px)}
+  from{opacity:0;transform:translateY(15px)}
   to{opacity:1}
 }
 
-input,textarea{
+input, textarea{
   width:100%;
   padding:12px;
   margin:8px 0;
   border:none;
-  border-radius:8px;
+  border-radius:10px;
+  font-size:15px;
+}
+
+textarea{
+  resize:none;
+  min-height:90px;
 }
 
 button{
@@ -39,14 +46,18 @@ button{
   background:#3b82f6;
   color:white;
   border:none;
-  border-radius:10px;
+  border-radius:12px;
   font-size:16px;
   cursor:pointer;
 }
 
+button:active{
+  transform:scale(.98);
+}
+
 .avatar{
-  width:120px;
-  height:120px;
+  width:110px;
+  height:110px;
   border-radius:50%;
   object-fit:cover;
   border:3px solid #3b82f6;
@@ -57,4 +68,12 @@ button{
   margin:6px;
   color:#60a5fa;
   text-decoration:none;
+  font-size:14px;
+}
+
+@media (max-width:480px){
+  .card{
+    margin:10px;
+    padding:16px;
+  }
 }
