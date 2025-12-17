@@ -20,6 +20,18 @@ window.signup = async () => {
       email,
       password
     );
+    import { db } from "./firebase.js";
+import { doc, setDoc } from
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+// signup ke andar (after createUserWithEmailAndPassword)
+await setDoc(doc(db, "users", userCred.user.uid), {
+  uid: userCred.user.uid,
+  email: email,
+  username: username,
+  blocked: false,
+  createdAt: Date.now()
+});
 
     // username = gmail ke @ se pehle wala part
     const username = email.split("@")[0].toLowerCase();
